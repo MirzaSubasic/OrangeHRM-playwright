@@ -1,4 +1,7 @@
 import { test as base, expect, Page } from '@playwright/test';
+import { CREDENTIALS } from '../constants/constants';
+import { TITLES } from '../constants/constants';
+import { LoginPage } from '../pages/login-page';
 
 type MyFixtures = {
   loginPage: Page;
@@ -10,12 +13,11 @@ export const test = base.extend<MyFixtures>({
   loginPage: async ({ page, baseURL }, use) => {
     // Go to base URL (login page)
     await page.goto(baseURL!);
-    await expect(page).toHaveTitle(/OrangeHRM/);
+    await expect(page).toHaveTitle(TITLES.loginPage);
 
     // Perform login
-    
-
-    // Verify login success
+    const loginPage = new LoginPage(page);
+    await loginPage.login(CREDENTIALS.username, CREDENTIALS.password);
 
     // Use the logged-in page in tests
     await use(page);
