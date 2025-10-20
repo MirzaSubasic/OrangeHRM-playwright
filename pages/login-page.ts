@@ -1,4 +1,4 @@
-import { expect, type Locator, type Page } from '@playwright/test';
+import { type Locator, type Page } from '@playwright/test';
 import { BasePage } from './base-page';
 
 export class LoginPage extends BasePage {
@@ -13,7 +13,7 @@ export class LoginPage extends BasePage {
     this.loginButton = page.getByRole('button', { name: 'Login' });
   }
 
-  async login(username: string, password: string) {
+  async enterCredentialsAndLogin(username: string, password: string) {
     await this.FillElement(this.usernameInput, username, "Username input filled");
     await this.FillElement(this.passwordInput, password, "Password input filled");
     await this.ClickElement(this.loginButton, "Login Button clicked");

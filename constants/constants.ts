@@ -6,4 +6,5 @@ export const CREDENTIALS = {
 export const TITLES = {
   loginPage: /OrangeHRM/,
   dashboardPage: "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index",
+  adminPage: "https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSystemUsers",
 };
