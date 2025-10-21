@@ -13,7 +13,7 @@ test.describe('Admin Menu Item Test', () => {
     await menuPage.navigateToAdminSection();
     await adminPage.disableUser();
 
-    
+    await expect(await adminPage.getSuccessMessage()).toBe('Successfully Updated');
   });
 
 });

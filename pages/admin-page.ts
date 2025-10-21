@@ -7,16 +7,20 @@ export class AdminPage extends BasePage {
     private filterButton: Locator;
     private editUserDetailsButton: Locator;
     private userStatusDropdown: Locator;
+    private disableOptionInStatusDropdown: Locator;
     private saveUserChangesButton: Locator;
+    private successMessage: Locator;
 
     constructor(page: Page) {
         super();
         this.selectStatusFilterOnAllUsers = page.getByText('-- Select --').nth(1);
         this.EnabledOptionInStatusDropdown = page.getByText('Enabled');
         this.filterButton = page.getByRole('button', { name: 'Search' });
-        this.editUserDetailsButton = page.getByRole('button').locator('.i-pencil-fill').nth(1);
+        this.editUserDetailsButton = page.locator('.oxd-table-cell-action-space').nth(1);
         this.userStatusDropdown = page.getByText('Enabled');
+        this.disableOptionInStatusDropdown = page.getByText('Disabled');
         this.saveUserChangesButton = page.getByRole('button', { name: 'Save' });
+        this.successMessage = page.getByText('Successfully Updated');
     }
 
     //filter all enabled users
@@ -32,7 +36,8 @@ export class AdminPage extends BasePage {
     }
 
     private async selectDisableStatusOnSingleUser(){
-        await this.selectDropdownByValue(this.userStatusDropdown, "Disabled", `Selected user status: Disabled`);
+        await this.clickElement(this.userStatusDropdown, "User Status Dropdown clicked");
+        await this.clickElement(this.disableOptionInStatusDropdown, "Disabled option selected in User Status Dropdown");
     }
 
     private async saveUserChanges(){
@@ -44,8 +49,9 @@ export class AdminPage extends BasePage {
         await this.openUserDetails();
         await this.selectDisableStatusOnSingleUser();
         await this.saveUserChanges();
-        
     }
 
-
+    async getSuccessMessage(): Promise<string> {
+        return this.successMessage.innerText();
+    }
 }
