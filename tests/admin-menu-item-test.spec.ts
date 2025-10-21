@@ -7,13 +7,16 @@ test.describe('Admin Menu Item Test', () => {
     await expect(loginPage).toHaveURL(TITLES.adminPage);
   });
 
-  test('Disable user', async ({ loginPage, menuPage }) => {
+  test('Disable user', async ({ loginPage, menuPage, adminPage }) => {
+    test.slow();
+
     await menuPage.navigateToAdminSection();
+    const initialCount = await adminPage.countEnabledUsers();
+    await adminPage.disableUser();
+    await loginPage.waitForTimeout(5000); // 5000 milliseconds = 5 seconds
+    const finalCount = await adminPage.countEnabledUsers();
 
-    // Additional steps to disable a user would go here
-
-    // Example assertion (to be replaced with actual verification logic)
-    // await expect(someElement).toHaveText('User Disabled');
-
+    await expect(finalCount).toEqual(initialCount - 1);
   });
+
 });

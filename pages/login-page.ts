@@ -14,8 +14,8 @@ export class LoginPage extends BasePage {
   }
 
   async enterCredentialsAndLogin(username: string, password: string) {
-    await this.FillElement(this.usernameInput, username, "Username input filled");
-    await this.FillElement(this.passwordInput, password, "Password input filled");
-    await this.ClickElement(this.loginButton, "Login Button clicked");
+    await this.fillElement(this.usernameInput, username, "Username input filled");
+    await this.fillElement(this.passwordInput, password, "Password input filled");
+    await this.clickElement(this.loginButton, "Login Button clicked");
   }
 }

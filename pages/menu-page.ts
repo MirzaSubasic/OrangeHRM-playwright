@@ -10,6 +10,6 @@ export class MenuPage extends BasePage {
     }
 
     async navigateToAdminSection() {
-        await this.ClickElement(this.adminMenuItem, "Admin Menu Item clicked");
+        await this.clickElement(this.adminMenuItem, "Admin Menu Item clicked");
     } 
 }

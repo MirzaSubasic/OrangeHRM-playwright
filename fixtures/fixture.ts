@@ -3,10 +3,12 @@ import { CREDENTIALS } from '../constants/constants';
 import { TITLES } from '../constants/constants';
 import { LoginPage } from '../pages/login-page';
 import { MenuPage } from '../pages/menu-page';
+import { AdminPage } from '../pages/admin-page';
 
 type MyFixtures = {
   loginPage: Page;
   menuPage: MenuPage;
+  adminPage: AdminPage;
 };
 
 // Extend the base test
@@ -25,6 +27,11 @@ export const test = base.extend<MyFixtures>({
   menuPage: async ({ page }, use) => {
     const menuPage = new MenuPage(page);
     await use(menuPage);
+  },
+
+  adminPage: async ({ page }, use) => {
+    const adminPage = new AdminPage(page);
+    await use(adminPage);
   }
 
 });
