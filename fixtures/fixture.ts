@@ -4,11 +4,13 @@ import { TITLES } from '../constants/constants';
 import { LoginPage } from '../pages/login-page';
 import { MenuPage } from '../pages/menu-page';
 import { AdminPage } from '../pages/admin-page';
+import { PIMPage } from '../pages/PIM-page';
 
 type MyFixtures = {
   loginPage: Page;
   menuPage: MenuPage;
   adminPage: AdminPage;
+  pimPage: PIMPage;
 };
 
 // Extend the base test
@@ -32,6 +34,11 @@ export const test = base.extend<MyFixtures>({
   adminPage: async ({ page }, use) => {
     const adminPage = new AdminPage(page);
     await use(adminPage);
+  },
+  
+  pimPage: async ({ page }, use) => {
+    const pimPage = new PIMPage(page);
+    await use(pimPage);
   }
 
 });
