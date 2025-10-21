@@ -3,21 +3,28 @@ import { BasePage } from './base-page';
 
 export class AdminPage extends BasePage {
     private selectStatusFilterOnAllUsers: Locator;
+    private EnabledOptionInStatusDropdown: Locator;
+    private filterButton: Locator;
     private editUserDetailsButton: Locator;
     private userStatusDropdown: Locator;
-    private EnabledTextLocator: Locator[];
+    private saveUserChangesButton: Locator;
 
     constructor(page: Page) {
         super();
-        this.selectStatusFilterOnAllUsers = page.getByLabel('-- Select --', { exact: true }).nth(1);
-        this.editUserDetailsButton = page.getByRole('button').locator('.oxd-icon bi-pencil-fill');
+        this.selectStatusFilterOnAllUsers = page.getByText('-- Select --').nth(1);
+        this.EnabledOptionInStatusDropdown = page.getByText('Enabled');
+        this.filterButton = page.getByRole('button', { name: 'Search' });
+        this.editUserDetailsButton = page.getByRole('button').locator('.i-pencil-fill').nth(1);
         this.userStatusDropdown = page.getByText('Enabled');
-        this.EnabledTextLocator = page.getByText('Enabled', { exact: true }).InnerTexts();
+        this.saveUserChangesButton = page.getByRole('button', { name: 'Save' });
     }
 
     //filter all enabled users
     private async filterEnabledUsersByStatus() {
-        await this.selectDropdownByValue(this.selectStatusFilterOnAllUsers, "Enabled", `Filtered users by status: Enabled`);
+        await this.clickElement(this.selectStatusFilterOnAllUsers, "Status Filter Dropdown clicked");
+        await this.clickElement(this.EnabledOptionInStatusDropdown, "Enabled option selected in Status Dropdown");
+
+        await this.clickElement(this.filterButton, "Filter Button clicked");
     }
 
     private async openUserDetails(){
@@ -28,16 +35,17 @@ export class AdminPage extends BasePage {
         await this.selectDropdownByValue(this.userStatusDropdown, "Disabled", `Selected user status: Disabled`);
     }
 
+    private async saveUserChanges(){
+        await this.clickElement(this.saveUserChangesButton, "Save User Changes Button clicked");
+    }
+
     async disableUser(){
         await this.filterEnabledUsersByStatus();
         await this.openUserDetails();
         await this.selectDisableStatusOnSingleUser();
+        await this.saveUserChanges();
+        
     }
 
-    async countEnabledUsers(): Promise<number> {
-        // finish this method to return the count of enabled users
-        console.log(`Number of enabled users: ${this.EnabledTextLocator.length}`);
-        return this.EnabledTextLocator.length;
-    }
 
 }

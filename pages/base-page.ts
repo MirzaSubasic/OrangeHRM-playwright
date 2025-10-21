@@ -1,4 +1,4 @@
-import { Locator } from "@playwright/test";
+import { expect, Locator } from "@playwright/test";
 
 export class BasePage {
 
@@ -6,6 +6,7 @@ export class BasePage {
 
     async clickElement(locator: Locator, logMessage: string) {
         try {
+            await expect(locator).toBeVisible({ timeout: 6000 });
             await locator.click();
             console.log(logMessage);
         } catch (error) {
@@ -15,6 +16,7 @@ export class BasePage {
 
     async fillElement(locator: Locator, text: string, logMessage: string) {
         try {
+            await expect(locator).toBeVisible({ timeout: 6000 });
             await locator.fill(text);
             console.log(logMessage);
         } catch (error) {
@@ -24,7 +26,8 @@ export class BasePage {
 
     async selectDropdownByValue(locator: Locator, value: string, logMessage: string) {
         try {
-            await locator.selectOption({ value });
+            await expect(locator).toBeVisible({ timeout: 6000 });
+            await locator.selectOption(value);
             console.log(logMessage);
         } catch (error) {
             console.error(`Error selecting dropdown option: ${error}`);
