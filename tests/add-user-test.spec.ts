@@ -5,9 +5,22 @@ test('Add new user', async ({ loginPage, menuPage, pimPage}) => {
 
     await pimPage.navigateToAddEmployeeTab();
     await pimPage.fillEmployeeDetails();
-    await pimPage.generatePasswordFields();
+    await pimPage.saveEmployeeButton();
 
-    // Add assertions as needed to verify user addition
+    const successMessageLocator = await pimPage.getSuccessMessageLocator();
+
+    await expect(successMessageLocator).toHaveText('Successfully Saved');
+});
+
+test('Add new user with credentials and photo', async ({ loginPage, menuPage, pimPage}) => {
+    await menuPage.navigateToPIMPage();
+
+    await pimPage.navigateToAddEmployeeTab();
+    await pimPage.fillEmployeeDetails();
+    await pimPage.uploadUserPhoto();
+    await pimPage.generatePasswordFields();
+    await pimPage.saveEmployeeButton();
+
     const successMessageLocator = await pimPage.getSuccessMessageLocator();
     
     await expect(successMessageLocator).toHaveText('Successfully Saved');

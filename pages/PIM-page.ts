@@ -12,7 +12,9 @@ export class PIMPage extends BasePage {
     private usernameInput: Locator;
     private passwordInput: Locator;
     private confirmPasswordInput: Locator;
+    private photoUploadButton: Locator;
     private successMessage: Locator;
+    private saveButton: Locator;
 
     constructor(page: Page) {
         super();
@@ -23,9 +25,11 @@ export class PIMPage extends BasePage {
         this.employeeIdInput = page.locator('//div[2]/div/div/div[2]/input');
         this.generatePasswordCheckbox = page.locator('//label/span');
         this.usernameInput = page.locator('//div/input[@class="oxd-input oxd-input--active"]').nth(2);
-        this.passwordInput = page.locator('//div/input[@class="oxd-input oxd-input--active"]').nth(3);
-        this.confirmPasswordInput = page.locator('//div/input[@class="oxd-input oxd-input--active"]').nth(4);
+        this.passwordInput = page.locator('(//div/input[@class="oxd-input oxd-input--active"])[3]');
+        this.confirmPasswordInput = page.locator('(//div/input[@class="oxd-input oxd-input--active"])[4]');
+        this.photoUploadButton = page.getByRole('button').locator('.oxd-icon.bi-plus');
         this.successMessage = page.getByText('Successfully Saved');
+        this.saveButton = page.getByRole('button', { name: ' Save ' });
     }
 
     async navigateToAddEmployeeTab() {
@@ -33,43 +37,41 @@ export class PIMPage extends BasePage {
     }
 
     async fillEmployeeDetails() {
-        await this.fillElement(this.firstNameInput, await this.getFirstName(), "First Name entered");
-        await this.fillElement(this.lastNameInput, await this.getLastName(), "Last Name entered");
-        await this.fillElement(this.middleNameInput, await this.getMiddleName(), "Middle Name entered");
-        await this.fillElement(this.employeeIdInput, await this.getEmployeeId(), "Employee ID entered");
+        await this.fillElement(this.firstNameInput, await faker.person.firstName(), "First Name entered");
+        await this.fillElement(this.lastNameInput, await faker.person.lastName(), "Last Name entered");
+        await this.fillElement(this.middleNameInput, await faker.person.middleName(), "Middle Name entered");
+        await this.fillElement(this.employeeIdInput, await faker.string.alpha({ casing: 'lower', length: 9 }), "Employee ID entered");
     }
 
     async generatePasswordFields() {
-        const password = await this.generatePassword();
-        const username = await this.getFirstName().then(firstName => firstName?.toLowerCase() + faker.string.numeric(6));
+        const password = await faker.internet.password();
+        const username = await faker.person.firstName() + faker.number.int({ min: 1100, max: 9999 }).toString();
 
         await this.clickElement(this.generatePasswordCheckbox, "Generate Password Checkbox clicked");
         await this.fillElement(this.usernameInput, username, "Username entered");
-        await this.fillElement(this.passwordInput, password, "Password entered");
-        await this.fillElement(this.confirmPasswordInput, password, "Confirm Password entered");
+        await this.fillElement(this.passwordInput, password, "Password entered: " + password);
+        await this.fillElement(this.confirmPasswordInput, password, "Confirm Password entered: " + password);
+    }
+
+    async saveEmployeeButton() {
+        await this.clickElement(this.saveButton, "Save Button clicked");
     }
 
     async getSuccessMessageLocator(): Promise<Locator> {
         return this.successMessage;
     }
 
-    private async getFirstName(): Promise<string> {
-        return faker.person.firstName();
-    }
+    async uploadUserPhoto() {
+        const path = require('path');
+        const filePath = path.join(__dirname, '..', 'constants', 'UserAvatar.png');
 
-    private async getLastName(): Promise<string> {
-        return faker.person.lastName();
-    }
+        await this.photoUploadButton.waitFor({ state: 'visible' });
 
-    private async getMiddleName(): Promise<string> {
-        return faker.person.middleName();
-    }
-
-    private async getEmployeeId(): Promise<string> {
-        return faker.string.uuid().length > 8 ? faker.string.uuid().slice(0, 8) : faker.string.uuid();
-    }
-
-    private async generatePassword(): Promise<string> {
-        return faker.internet.password();
+        const [fileChooser] = await Promise.all([
+            this.photoUploadButton.page().waitForEvent('filechooser'),
+            this.photoUploadButton.click()
+        ]);
+        
+        await fileChooser.setFiles(filePath);
     }
 }
