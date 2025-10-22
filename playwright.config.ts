@@ -13,6 +13,7 @@ export default defineConfig({
     video: 'retain-on-failure',
 
     baseURL: 'https://opensource-demo.orangehrmlive.com/web/index.php/auth/login',
+    locale: 'en-US',
 
     trace: 'on-first-retry',
   },
