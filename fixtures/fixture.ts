@@ -5,12 +5,14 @@ import { LoginPage } from '../pages/login-page';
 import { MenuPage } from '../pages/menu-page';
 import { AdminPage } from '../pages/admin-page';
 import { PIMPage } from '../pages/PIM-page';
+import { LeavePage } from '../pages/leave-page';
 
 type MyFixtures = {
   loginPage: Page;
   menuPage: MenuPage;
   adminPage: AdminPage;
   pimPage: PIMPage;
+  leavePage: LeavePage;
 };
 
 // Extend the base test
@@ -39,6 +41,11 @@ export const test = base.extend<MyFixtures>({
   pimPage: async ({ page }, use) => {
     const pimPage = new PIMPage(page);
     await use(pimPage);
+  },
+
+  leavePage: async({ page }, use) =>{
+    const leavePage = new LeavePage(page);
+    await use(leavePage);
   }
 
 });
