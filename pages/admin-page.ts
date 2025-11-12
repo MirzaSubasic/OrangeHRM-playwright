@@ -14,7 +14,7 @@ export class AdminPage extends BasePage {
     constructor(page: Page) {
         super();
         this.selectStatusFilterOnAllUsers = page.getByText('-- Select --').nth(1);
-        this.EnabledOptionInStatusDropdown = page.getByText('Enabled');
+        this.EnabledOptionInStatusDropdown = page.getByText('Enabled').first();
         this.filterButton = page.getByRole('button', { name: 'Search' });
         this.editUserDetailsButton = page.locator('.oxd-table-cell-action-space').nth(1);
         this.userStatusDropdown = page.getByText('Enabled');
