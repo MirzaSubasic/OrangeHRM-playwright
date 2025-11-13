@@ -4,7 +4,7 @@ export class BasePage {
 
     constructor() {}
 
-    async clickElement(locator: Locator, logMessage: string) {
+    protected async clickElement(locator: Locator, logMessage: string) {
         try {
             await expect(locator).toBeVisible({ timeout: 6000 });
             await locator.click();
@@ -14,7 +14,7 @@ export class BasePage {
         }
     }
 
-    async fillElement(locator: Locator, text: string, logMessage: string) {
+    protected async fillElement(locator: Locator, text: string, logMessage: string) {
         try {
             await expect(locator).toBeVisible({ timeout: 6000 });
             await locator.fill(text);
@@ -24,7 +24,7 @@ export class BasePage {
         }
     }
 
-    async selectDropdownByValue(locator: Locator, value: string, logMessage: string) {
+    protected async selectDropdownByValue(locator: Locator, value: string, logMessage: string) {
         try {
             await expect(locator).toBeVisible({ timeout: 6000 });
             await locator.selectOption(value);
