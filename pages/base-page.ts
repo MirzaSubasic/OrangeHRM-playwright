@@ -1,4 +1,5 @@
 import { expect, Locator } from "@playwright/test";
+import { setTimeout } from "timers/promises";
 
 export class BasePage {
 
@@ -28,6 +29,18 @@ export class BasePage {
         try {
             await expect(locator).toBeVisible({ timeout: 6000 });
             await locator.selectOption(value);
+            console.log(logMessage);
+        } catch (error) {
+            console.error(`Error selecting dropdown option: ${error}`);
+        }
+    }
+
+    protected async clickOnListedOptionsDiv(selectOptionLocator: Locator, value: string, logMessage: string){
+        try {
+            //set timer to 1.5 seconds so options are loaded
+            await setTimeout(1500); 
+            await expect(selectOptionLocator).toBeVisible({ timeout: 6000 });
+            await selectOptionLocator.click();
             console.log(logMessage);
         } catch (error) {
             console.error(`Error selecting dropdown option: ${error}`);
