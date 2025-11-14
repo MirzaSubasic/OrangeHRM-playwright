@@ -2,7 +2,7 @@ import { type Locator, type Page } from '@playwright/test';
 import { BasePage } from './base-page';
 
 export class LeavePage extends BasePage {
-    private assignLeaveButton: Locator;
+    private assignLeaveTab: Locator;
     private selectEmployeeField: Locator;
     private selectEmployeeOption: Locator;
     private logedInUserText: Locator;
@@ -10,21 +10,25 @@ export class LeavePage extends BasePage {
     private fromDate: Locator;
     private toDate: Locator;
     private todayDateButton: Locator;
+    private assignLeaveButton: Locator;
+    private availableLeave: Locator;
 
     constructor(page: Page){
         super();
-        this.assignLeaveButton = page.getByRole("link").getByText("Assign leave");
+        this.assignLeaveTab = page.getByRole("link").getByText("Assign leave");
         this.selectEmployeeField = page.getByPlaceholder("Type for hints");
         this.selectEmployeeOption = page.getByRole("listbox").first();
         this.logedInUserText = page.locator('.oxd-userdropdown-name');
-        this.leaveTypeDropDown = page.locator('.oxd-select-text-input');
+        this.leaveTypeDropDown = page.locator('.oxd-select-text-input').first();
         this.fromDate = page.getByPlaceholder("yyyy-dd-mm").first();
         this.toDate = page.getByPlaceholder("yyyy-dd-mm").nth(1);
-        this.todayDateButton = page.getByRole('button', {name: 'Today'});
+        this.todayDateButton = page.getByText("Today");
+        this.assignLeaveButton = page.getByRole("button", {name: "Assign"});
+        this.availableLeave = page.locator('.orangehrm-leave-balance-text');
     }
 
     async goToAssignLeaveTab(){
-        await this.clickElement(this.assignLeaveButton, "Leave Button clicked");
+        await this.clickElement(this.assignLeaveTab, "Leave Button clicked");
     }
 
     async fillLeaveData(){
@@ -47,11 +51,14 @@ export class LeavePage extends BasePage {
     }
 
     async getAvailableLeaveDays(){
+        const availableLeaveInDays = this.availableLeave.textContent() + '';
+        const numberOfLEaveDays =  parseFloat(availableLeaveInDays.match(/\d+(\.\d+)?/)?.[0] ?? "");
 
+        return numberOfLEaveDays;
     }
 
     async submitLeave(){
-
+        await this.clickElement(this.assignLeaveButton, "Clicked assign button on assign leave form")
     }
 
     private async getLogedInUserName(){ return await this.logedInUserText.textContent();}
