@@ -12,6 +12,7 @@ export class BasePage {
             console.log(logMessage);
         } catch (error) {
             console.error(`Error clicking element: ${error}`);
+            throw error;
         }
     }
 
@@ -22,6 +23,7 @@ export class BasePage {
             console.log(logMessage);
         } catch (error) {
             console.error(`Error filling element: ${error}`);
+            throw error;
         }
     }
 
@@ -32,6 +34,7 @@ export class BasePage {
             console.log(logMessage);
         } catch (error) {
             console.error(`Error selecting dropdown option: ${error}`);
+            throw error;
         }
     }
 
@@ -44,6 +47,7 @@ export class BasePage {
             console.log(logMessage);
         } catch (error) {
             console.error(`Error selecting dropdown option: ${error}`);
+            throw error;
         }
     }
 

@@ -9,5 +9,8 @@ test('Assign leave to employee for todays date', async ({ loginPage, menuPage, l
     await leavePage.submitLeave();
 
     //test validation - if 0.00 days reject leave
-    if(numberOfLeaveDays < 1.00){}
+    if(numberOfLeaveDays < 1.00){
+        const alertText = 'Employee does not have sufficient leave balance for leave request. Click OK to confirm leave assignment.';
+        loginPage.on('dialog', dialog => expect(dialog.message()).toBe(alertText));
+    }
 });

@@ -7,8 +7,8 @@ export class LeavePage extends BasePage {
     private selectEmployeeOption: Locator;
     private logedInUserText: Locator;
     private leaveTypeDropDown: Locator;
+    private leaveTypeDropDownOption: Locator;
     private fromDate: Locator;
-    private toDate: Locator;
     private todayDateButton: Locator;
     private assignLeaveButton: Locator;
     private availableLeave: Locator;
@@ -20,8 +20,8 @@ export class LeavePage extends BasePage {
         this.selectEmployeeOption = page.getByRole("listbox").first();
         this.logedInUserText = page.locator('.oxd-userdropdown-name');
         this.leaveTypeDropDown = page.locator('.oxd-select-text-input').first();
+        this.leaveTypeDropDownOption = page.locator('.oxd-select-text-input').getByText("CAN - Personal");
         this.fromDate = page.getByPlaceholder("yyyy-dd-mm").first();
-        this.toDate = page.getByPlaceholder("yyyy-dd-mm").nth(1);
         this.todayDateButton = page.getByText("Today");
         this.assignLeaveButton = page.getByRole("button", {name: "Assign"});
         this.availableLeave = page.locator('.orangehrm-leave-balance-text');
@@ -41,13 +41,10 @@ export class LeavePage extends BasePage {
         //date from
         await this.clickElement(this.fromDate, "Clicked on from date field in leave form")
         await this.clickElement(this.todayDateButton, "Clicked today button on calendar")
-
-        //date to
-        await this.clickElement(this.toDate, "Clicked on to date field in leave form")
-        await this.clickElement(this.todayDateButton, "Clicked today button on calendar")
         
         //leave type
-        await this.selectDropdownByValue(this.leaveTypeDropDown, "US - Vacation", "Selecting leave type")
+        await this.clickElement(this.leaveTypeDropDown, "Clicked on selecting leave type")
+        await this.clickElement(this.leaveTypeDropDownOption, "Clicked wanted leave type")
     }
 
     async getAvailableLeaveDays(){
