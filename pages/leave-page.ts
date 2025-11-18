@@ -2,6 +2,7 @@ import { type Locator, type Page } from '@playwright/test';
 import { BasePage } from './base-page';
 
 export class LeavePage extends BasePage {
+    protected page: Page;
     private assignLeaveTab: Locator;
     private selectEmployeeField: Locator;
     private selectEmployeeOption: Locator;
@@ -12,19 +13,22 @@ export class LeavePage extends BasePage {
     private todayDateButton: Locator;
     private assignLeaveButton: Locator;
     private availableLeave: Locator;
+    private sucessText: Locator;
 
     constructor(page: Page){
         super();
+        this.page = page;
         this.assignLeaveTab = page.getByRole("link").getByText("Assign leave");
         this.selectEmployeeField = page.getByPlaceholder("Type for hints");
         this.selectEmployeeOption = page.getByRole("listbox").first();
         this.logedInUserText = page.locator('.oxd-userdropdown-name');
         this.leaveTypeDropDown = page.locator('.oxd-select-text-input').first();
-        this.leaveTypeDropDownOption = page.locator('.oxd-select-text-input').getByText("CAN - Personal");
+        this.leaveTypeDropDownOption = page.getByText("CAN - Personal");
         this.fromDate = page.getByPlaceholder("yyyy-dd-mm").first();
         this.todayDateButton = page.getByText("Today");
         this.assignLeaveButton = page.getByRole("button", {name: "Assign"});
         this.availableLeave = page.locator('.orangehrm-leave-balance-text');
+        this.sucessText = page.locator(".oxd-toaster_1");
     }
 
     async goToAssignLeaveTab(){
@@ -59,4 +63,18 @@ export class LeavePage extends BasePage {
     }
 
     private async getLogedInUserName(){ return await this.logedInUserText.textContent();}
+
+    async acceptDialog() {
+        this.page.once('dialog', async (dialog) => {
+            await dialog.accept();
+        })
+    }
+
+    async getSucessText(){
+        await this.sucessText.waitFor({ state: 'visible', timeout: 3000 });
+
+        const message = await this.sucessText.textContent();
+
+        return message?.trim() ?? '';
+    }
 }
