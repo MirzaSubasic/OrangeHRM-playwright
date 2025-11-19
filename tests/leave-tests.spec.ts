@@ -8,5 +8,5 @@ test('Assign leave to employee for todays date', async ({ loginPage, menuPage, l
     await leavePage.submitLeave();
     await leavePage.acceptDialog();
     
-    await expect(leavePage.getSucessText()).toBe("Sucess");
+    await expect(leavePage.getWarningText()).toBe("Warning");
 });

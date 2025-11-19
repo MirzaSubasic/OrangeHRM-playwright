@@ -12,8 +12,8 @@ export class LeavePage extends BasePage {
     private fromDate: Locator;
     private todayDateButton: Locator;
     private assignLeaveButton: Locator;
-    private availableLeave: Locator;
-    private sucessText: Locator;
+    private acceptLeaveButton: Locator;
+    private warningText: Locator;
 
     constructor(page: Page){
         super();
@@ -24,11 +24,11 @@ export class LeavePage extends BasePage {
         this.logedInUserText = page.locator('.oxd-userdropdown-name');
         this.leaveTypeDropDown = page.locator('.oxd-select-text-input').first();
         this.leaveTypeDropDownOption = page.getByText("CAN - Personal");
-        this.fromDate = page.getByPlaceholder("yyyy-dd-mm").first();
+        this.fromDate = page.getByPlaceholder("dd-mm-yyyy").first();
         this.todayDateButton = page.getByText("Today");
         this.assignLeaveButton = page.getByRole("button", {name: "Assign"});
-        this.availableLeave = page.locator('.orangehrm-leave-balance-text');
-        this.sucessText = page.locator(".oxd-toaster_1");
+        this.acceptLeaveButton = page.getByRole("button", {name: "Ok"});
+        this.warningText = page.locator('.oxd-toast-content .oxd-text');
     }
 
     async goToAssignLeaveTab(){
@@ -51,13 +51,6 @@ export class LeavePage extends BasePage {
         await this.clickElement(this.leaveTypeDropDownOption, "Clicked wanted leave type")
     }
 
-    async getAvailableLeaveDays(){
-        const availableLeaveInDays = this.availableLeave.textContent() + '';
-        const numberOfLEaveDays =  parseFloat(availableLeaveInDays.match(/\d+(\.\d+)?/)?.[0] ?? "");
-
-        return numberOfLEaveDays;
-    }
-
     async submitLeave(){
         await this.clickElement(this.assignLeaveButton, "Clicked assign button on assign leave form")
     }
@@ -65,16 +58,11 @@ export class LeavePage extends BasePage {
     private async getLogedInUserName(){ return await this.logedInUserText.textContent();}
 
     async acceptDialog() {
-        this.page.once('dialog', async (dialog) => {
-            await dialog.accept();
-        })
+        await this.clickElement(this.acceptLeaveButton, "Clicked OK on dialog");
     }
 
-    async getSucessText(){
-        await this.sucessText.waitFor({ state: 'visible', timeout: 3000 });
-
-        const message = await this.sucessText.textContent();
-
-        return message?.trim() ?? '';
+    async getWarningText(){
+        await this.warningText.first().waitFor({ state: "visible", timeout: 6000 });
+        return (await this.warningText.first().textContent())?.trim() ?? '';
     }
 }
