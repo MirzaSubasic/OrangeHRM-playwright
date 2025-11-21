@@ -1,4 +1,4 @@
-import { type Locator, type Page } from '@playwright/test';
+import { expect, type Locator, type Page } from '@playwright/test';
 import { BasePage } from './base-page';
 
 export class LeavePage extends BasePage {
@@ -24,11 +24,11 @@ export class LeavePage extends BasePage {
         this.logedInUserText = page.locator('.oxd-userdropdown-name');
         this.leaveTypeDropDown = page.locator('.oxd-select-text-input').first();
         this.leaveTypeDropDownOption = page.getByText("CAN - Personal");
-        this.fromDate = page.getByPlaceholder("dd-mm-yyyy").first();
+        this.fromDate = page.getByPlaceholder("yyyy-dd-mm").first();
         this.todayDateButton = page.getByText("Today");
         this.assignLeaveButton = page.getByRole("button", {name: "Assign"});
         this.acceptLeaveButton = page.getByRole("button", {name: "Ok"});
-        this.warningText = page.locator('.oxd-toast-content .oxd-text');
+        this.warningText = page.locator('//div[2]/div/div[1]/div[2]/p[1]').first();
     }
 
     async goToAssignLeaveTab(){
@@ -61,8 +61,8 @@ export class LeavePage extends BasePage {
         await this.clickElement(this.acceptLeaveButton, "Clicked OK on dialog");
     }
 
-    async getWarningText(){
-        await this.warningText.first().waitFor({ state: "visible", timeout: 6000 });
-        return (await this.warningText.first().textContent())?.trim() ?? '';
+    async getWarningText() {
+        await expect(this.warningText).toBeVisible();
+        return (await this.warningText.textContent())?.trim();
     }
 }

@@ -22,7 +22,7 @@ export class PIMPage extends BasePage {
         this.firstNameInput = page.getByPlaceholder('First Name');
         this.lastNameInput = page.getByPlaceholder('Last Name');
         this.middleNameInput = page.getByPlaceholder('Middle Name');
-        this.employeeIdInput = page.locator('//div[2]/div/div/div[2]/input');
+        this.employeeIdInput = page.locator('//div[2]/div/div/div[2]/input[@class="oxd-input oxd-input--active"]');
         this.generatePasswordCheckbox = page.locator('//label/span');
         this.usernameInput = page.locator('//div/input[@class="oxd-input oxd-input--active"]').nth(2);
         this.passwordInput = page.locator('(//div/input[@class="oxd-input oxd-input--active"])[3]');
