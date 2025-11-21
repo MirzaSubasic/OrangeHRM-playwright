@@ -12,8 +12,13 @@ export default defineConfig({
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
 
+    headless: true,
+
+    navigationTimeout: 15_000,
+    actionTimeout: 10_000,
+
     baseURL: 'https://opensource-demo.orangehrmlive.com/web/index.php/auth/login',
-    locale: 'en-US',
+    locale: 'en-GB',
     geolocation: {
       longitude: 0,
       latitude: 51
@@ -25,18 +30,7 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-    },
-
-    /*{
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
-
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },*/
-
+      use: { ...devices['Desktop Chrome'] }
+    }
   ],
 });
