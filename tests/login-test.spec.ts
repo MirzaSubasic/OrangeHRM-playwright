@@ -1,7 +1,7 @@
 import { test, expect } from '../fixtures/fixture';
 import { TITLES } from '../constants/constants';
 
-test('Verify login functionality', async ({ loginPage }) => {
+test('Verify login functionality', async ({ page }) => {
     // Verify login success
-    await expect(loginPage).toHaveURL(TITLES.dashboardPage);
+    await expect(page).toHaveURL(TITLES.dashboardPage);
 });

@@ -1,6 +1,6 @@
 import { test, expect } from '../fixtures/fixture';
 
-test('Assign leave to employee for todays date', async ({ loginPage, menuPage, leavePage }) => {
+test('Assign leave to employee for todays date', async ({ menuPage, leavePage }) => {
     await menuPage.navigateToLeavePage();
 
     await leavePage.goToAssignLeaveTab();

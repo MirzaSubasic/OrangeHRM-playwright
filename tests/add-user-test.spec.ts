@@ -1,6 +1,6 @@
     import { test, expect } from '../fixtures/fixture';
 
-test('Add new user', async ({ loginPage, menuPage, pimPage}) => {
+test('Add new user', async ({ menuPage, pimPage}) => {
     await menuPage.navigateToPIMPage();
 
     await pimPage.navigateToAddEmployeeTab();
@@ -12,7 +12,7 @@ test('Add new user', async ({ loginPage, menuPage, pimPage}) => {
     await expect(successMessageLocator).toHaveText('Successfully Saved');
 });
 
-test('Add new user with credentials and photo', async ({ loginPage, menuPage, pimPage}) => {
+test('Add new user with credentials and photo', async ({ menuPage, pimPage}) => {
     await menuPage.navigateToPIMPage();
 
     await pimPage.navigateToAddEmployeeTab();

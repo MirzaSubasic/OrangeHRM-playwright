@@ -14,9 +14,6 @@ export default defineConfig({
 
     headless: true,
 
-    navigationTimeout: 15_000,
-    actionTimeout: 10_000,
-
     baseURL: 'https://opensource-demo.orangehrmlive.com/web/index.php/auth/login',
     locale: 'en-GB',
     geolocation: {

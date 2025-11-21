@@ -2,12 +2,12 @@ import { TITLES } from '../constants/constants';
 import { test, expect } from '../fixtures/fixture';
 
 test.describe('Admin Menu Item Test', () => {
-  test('should navigate to admin section', async ({ loginPage, menuPage }) => {
+  test('should navigate to admin section', async ({ menuPage, page }) => {
     await menuPage.navigateToAdminPage();
-    await expect(loginPage).toHaveURL(TITLES.adminPage);
+    await expect(page).toHaveURL(TITLES.adminPage);
   });
 
-  test('Disable user', async ({ loginPage, menuPage, adminPage }) => {
+  test('Disable user', async ({ menuPage, adminPage }) => {
     test.slow();
 
     await menuPage.navigateToAdminPage();
