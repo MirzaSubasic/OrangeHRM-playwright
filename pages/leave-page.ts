@@ -13,7 +13,8 @@ export class LeavePage extends BasePage {
     private todayDateButton: Locator;
     private assignLeaveButton: Locator;
     private acceptLeaveButton: Locator;
-    private warningText: Locator;
+    //private warningText: Locator;
+    private insuficientLeaveBalanceText: Locator;
 
     constructor(page: Page){
         super();
@@ -28,7 +29,8 @@ export class LeavePage extends BasePage {
         this.todayDateButton = page.getByText("Today");
         this.assignLeaveButton = page.getByRole("button", {name: "Assign"});
         this.acceptLeaveButton = page.getByRole("button", {name: "Ok"});
-        this.warningText = page.locator('//div[2]/div/div[1]/div[2]/p[1]').first();
+        //this.warningText = page.locator('//div[2]/div/div[1]/div[2]/p[1]').first();
+        this.insuficientLeaveBalanceText = page.getByText("Balance not sufficient");
     }
 
     async goToAssignLeaveTab(){
@@ -61,8 +63,13 @@ export class LeavePage extends BasePage {
         await this.clickElement(this.acceptLeaveButton, "Clicked OK on dialog");
     }
 
-    async getWarningText() {
-        await expect(this.warningText).toBeVisible();
-        return (await this.warningText.textContent())?.trim();
+    //async getWarningText() {
+        //await expect(this.warningText).toBeVisible();
+        //return (await this.warningText.textContent())?.trim();
+    //}
+
+    async getInsuficientLeaveBalanceText() {
+        await expect(this.insuficientLeaveBalanceText).toBeVisible();
+        return (await this.insuficientLeaveBalanceText.textContent())?.trim();
     }
 }

@@ -1,6 +1,5 @@
-import { test as base, expect } from '@playwright/test';
-import { CREDENTIALS, TITLES } from '../constants/constants';
-
+import { test as base } from '@playwright/test';
+import { CREDENTIALS } from '../constants/constants';
 import { LoginPage } from '../pages/login-page';
 import { MenuPage } from '../pages/menu-page';
 import { AdminPage } from '../pages/admin-page';

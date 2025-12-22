@@ -1,4 +1,4 @@
-    import { test, expect } from '../fixtures/fixture';
+import { test, expect } from '../fixtures/fixture';
 
 test('Add new user', async ({ menuPage, pimPage}) => {
     await menuPage.navigateToPIMPage();

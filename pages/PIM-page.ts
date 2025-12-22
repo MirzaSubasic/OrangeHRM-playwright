@@ -1,6 +1,6 @@
 import { type Locator, type Page } from '@playwright/test';
 import { BasePage } from "./base-page.js";
-import { fa, faker } from '@faker-js/faker';
+import { faker } from '@faker-js/faker';
 
 export class PIMPage extends BasePage {
     private addEmployeeTab: Locator;

@@ -9,5 +9,5 @@ test('Assign leave to employee for todays date', async ({ menuPage, leavePage })
     await leavePage.acceptDialog();
 
     //check warning message. Currently all users have 0 available days off so every request will be refused
-    await expect(await leavePage.getWarningText()).toBe("Warning");
+    await expect(await leavePage.getInsuficientLeaveBalanceText()).toBe("Balance not sufficient");
 });
