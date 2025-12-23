@@ -45,7 +45,7 @@ export class PIMPage extends BasePage {
 
     async generatePasswordFields() {
         const password = await faker.internet.password();
-        const username = await faker.person.firstName() + faker.number.int({ min: 1100, max: 9999 }).toString();
+        const username = await faker.person.firstName() + '199';
 
         await this.clickElement(this.generatePasswordCheckbox, "Generate Password Checkbox clicked");
         await this.fillElement(this.usernameInput, username, "Username entered");
