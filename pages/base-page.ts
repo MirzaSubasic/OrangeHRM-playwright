@@ -7,7 +7,7 @@ export class BasePage {
 
     protected async clickElement(locator: Locator, logMessage: string) {
         try {
-            await expect(locator).toBeVisible({ timeout: 8000 });
+            await expect(locator).toBeVisible({ timeout: 10000 });
             await locator.click();
             console.log(logMessage);
         } catch (error) {
@@ -18,7 +18,7 @@ export class BasePage {
 
     protected async fillElement(locator: Locator, text: string, logMessage: string) {
         try {
-            await expect(locator).toBeVisible({ timeout: 8000 });
+            await expect(locator).toBeVisible({ timeout: 10000 });
             await locator.fill(text);
             console.log(logMessage);
         } catch (error) {
@@ -29,7 +29,7 @@ export class BasePage {
 
     protected async selectDropdownByValue(locator: Locator, value: string, logMessage: string) {
         try {
-            await expect(locator).toBeVisible({ timeout: 8000 });
+            await expect(locator).toBeVisible({ timeout: 10000 });
             await locator.selectOption(value);
             console.log(logMessage);
         } catch (error) {
@@ -42,7 +42,7 @@ export class BasePage {
         try {
             //set timer to 1.5 seconds so options are loaded
             await setTimeout(1500); 
-            await expect(selectOptionLocator).toBeVisible({ timeout: 8000 });
+            await expect(selectOptionLocator).toBeVisible({ timeout: 10000 });
             await selectOptionLocator.click();
             console.log(logMessage);
         } catch (error) {
