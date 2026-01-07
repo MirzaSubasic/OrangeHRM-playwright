@@ -25,7 +25,7 @@ export class LeavePage extends BasePage {
         this.logedInUserText = page.locator('.oxd-userdropdown-name');
         this.leaveTypeDropDown = page.locator('.oxd-select-text-input').first();
         this.leaveTypeDropDownOption = page.getByText("CAN - Personal");
-        this.fromDate = page.getByPlaceholder("mm-dd-yyyy").first();
+        this.fromDate = page.locator("//div[3]/div/div[1]/div/div[2]/div/div/input");
         this.todayDateButton = page.getByText("Today");
         this.assignLeaveButton = page.getByRole("button", {name: "Assign"});
         this.acceptLeaveButton = page.getByRole("button", {name: "Ok"});
