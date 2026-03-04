@@ -40,8 +40,8 @@ export class BasePage {
 
     protected async clickOnListedOptionsDiv(selectOptionLocator: Locator, value: string, logMessage: string){
         try {
-            //set timer to 1.5 seconds so options are loaded
-            await setTimeout(1500); 
+            //set timer to 3 seconds so options are loaded
+            await setTimeout(3000); 
             await expect(selectOptionLocator).toBeVisible({ timeout: 10000 });
             await selectOptionLocator.click();
             console.log(logMessage);

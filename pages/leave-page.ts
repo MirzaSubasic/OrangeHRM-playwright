@@ -57,7 +57,11 @@ export class LeavePage extends BasePage {
         await this.clickElement(this.assignLeaveButton, "Clicked assign button on assign leave form")
     }
 
-    private async getLogedInUserName(){ return await this.logedInUserText.textContent();}
+    private async getLogedInUserName(): Promise<string> { 
+        const fullName = await this.logedInUserText.textContent();
+        return fullName ? fullName.trim().split(' ')[0] : '';
+    }
+
 
     async acceptDialog() {
         await this.clickElement(this.acceptLeaveButton, "Clicked OK on dialog");
