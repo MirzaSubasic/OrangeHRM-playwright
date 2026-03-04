@@ -1,27 +1,27 @@
 import { test, expect } from '../fixtures/fixture';
 
-test('Add new user', async ({ menuPage, pimPage}) => {
-    await menuPage.navigateToPIMPage();
+test('Add new user', async ({ pages}) => {
+    await pages.menuPage.navigateToPIMPage();
 
-    await pimPage.navigateToAddEmployeeTab();
-    await pimPage.fillEmployeeDetails();
-    await pimPage.saveEmployeeButton();
+    await pages.pimPage.navigateToAddEmployeeTab();
+    await pages.pimPage.fillEmployeeDetails();
+    await pages.pimPage.saveEmployeeButton();
 
-    const successMessageLocator = await pimPage.getSuccessMessageLocator();
+    const successMessageLocator = await pages.pimPage.getSuccessMessageLocator();
 
     await expect(successMessageLocator).toHaveText('Successfully Saved');
 });
 
-test('Add new user with credentials and photo', async ({ menuPage, pimPage}) => {
-    await menuPage.navigateToPIMPage();
+test('Add new user with credentials and photo', async ({ pages }) => {
+    await pages.menuPage.navigateToPIMPage();
 
-    await pimPage.navigateToAddEmployeeTab();
-    await pimPage.fillEmployeeDetails();
-    await pimPage.uploadUserPhoto();
-    await pimPage.generatePasswordFields();
-    await pimPage.saveEmployeeButton();
+    await pages.pimPage.navigateToAddEmployeeTab();
+    await pages.pimPage.fillEmployeeDetails();
+    await pages.pimPage.uploadUserPhoto();
+    await pages.pimPage.generatePasswordFields();
+    await pages.pimPage.saveEmployeeButton();
 
-    const successMessageLocator = await pimPage.getSuccessMessageLocator();
+    const successMessageLocator = await pages.pimPage.getSuccessMessageLocator();
     
     await expect(successMessageLocator).toHaveText('Successfully Saved');
 });

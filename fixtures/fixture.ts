@@ -13,31 +13,24 @@ type Pages = {
   leavePage: LeavePage;
 };
 
-export const test = base.extend<Pages>({
-  // Login happens ONCE before each test
+export const test = base.extend<{ pages: Pages }>({
+  // Login ONCE before each test (unchanged, keeps it fast)
   page: async ({ page, baseURL }, use) => {
     await page.goto(baseURL!);
-
     const loginPage = new LoginPage(page);
     await loginPage.enterCredentialsAndLogin(CREDENTIALS.username, CREDENTIALS.password);
-
     await use(page);
   },
 
-  menuPage: async ({ page }, use) => {
-    await use(new MenuPage(page));
-  },
-
-  adminPage: async ({ page }, use) => {
-    await use(new AdminPage(page));
-  },
-
-  pimPage: async ({ page }, use) => {
-    await use(new PIMPage(page));
-  },
-
-  leavePage: async ({ page }, use) => {
-    await use(new LeavePage(page));
+  // Single fixture for ALL pages (new: scalable, on-demand)
+  pages: async ({ page }, use) => {
+    const pagesObj: Pages = {
+      menuPage: new MenuPage(page),
+      adminPage: new AdminPage(page),
+      pimPage: new PIMPage(page),
+      leavePage: new LeavePage(page),
+    };
+    await use(pagesObj);
   },
 });
 
