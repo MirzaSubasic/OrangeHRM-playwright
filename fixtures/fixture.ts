@@ -14,7 +14,6 @@ type Pages = {
 };
 
 export const test = base.extend<{ pages: Pages }>({
-  // Login ONCE before each test (unchanged, keeps it fast)
   page: async ({ page, baseURL }, use) => {
     await page.goto(baseURL!);
     const loginPage = new LoginPage(page);
@@ -22,7 +21,6 @@ export const test = base.extend<{ pages: Pages }>({
     await use(page);
   },
 
-  // Single fixture for ALL pages (new: scalable, on-demand)
   pages: async ({ page }, use) => {
     const pagesObj: Pages = {
       menuPage: new MenuPage(page),

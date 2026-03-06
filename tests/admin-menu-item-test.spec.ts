@@ -8,8 +8,6 @@ test.describe('Admin Menu Item Test', () => {
   });
 
   test('Disable user', async ({ pages }) => {
-    test.slow();
-
     await pages.menuPage.navigateToAdminPage();
     await pages.adminPage.disableUser();
 
