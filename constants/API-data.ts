@@ -1,0 +1,9 @@
+export const newObjectData = {
+  name: "Lenovo ThinkPad X1 Carbon",
+  data: {
+    year: 2019,
+    price: 1849.99,
+    "CPU model": "Intel Core i9",
+    "Hard disk size": "1 TB",
+  },
+};
