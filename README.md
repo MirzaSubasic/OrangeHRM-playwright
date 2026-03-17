@@ -15,3 +15,9 @@ Aditional CLI commands can be found on https://playwright.dev/docs/test-cli
 ## Demo page
 
 Demo page can be accessed through following link: https://opensource-demo.orangehrmlive.com/web/index.php/auth/login
+
+## API testing
+
+I have used this page to get free public API: https://restful-api.dev/
+
+For playwight documentation visit: https://playwright.dev/docs/api/class-playwright
